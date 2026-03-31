@@ -1,0 +1,545 @@
+/* ============================================================
+   SecureSpend — Global Styles & Login/Register Page
+   Design System: Inter font, #6C63FF primary, light theme
+   ============================================================ */
+
+/* --- Google Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* --- CSS Custom Properties (Design Tokens) --- */
+:root {
+  --primary: #6C63FF;
+  --primary-dark: #5A54E0;
+  --primary-light: #8B7CFF;
+  --primary-glow: rgba(108, 99, 255, 0.2);
+  --primary-glow-strong: rgba(108, 99, 255, 0.35);
+
+  --bg-page: #F8F7FF;
+  --bg-card: #FFFFFF;
+  --bg-input: #fafafe;
+
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+
+  --border-light: #e5e5ea;
+  --border-card: rgba(0, 0, 0, 0.04);
+
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 28px rgba(0, 0, 0, 0.12);
+  --shadow-elevated: 0 12px 36px rgba(0, 0, 0, 0.14);
+
+  --radius-card: 16px;
+  --radius-input: 8px;
+  --radius-btn: 8px;
+  --radius-pill: 20px;
+
+  --transition: all 0.2s ease;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Base Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--text-primary);
+}
+
+/* --- Root reset --- */
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   LOGIN / REGISTER PAGE — Full-screen background
+   ============================================================ */
+.login-page {
+  height: 100vh;
+  width: 100%;
+  background-image: url("/new-bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dark overlay with richer gradient */
+.login-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg,
+      rgba(15, 12, 41, 0.82),
+      rgba(48, 43, 99, 0.75),
+      rgba(36, 36, 62, 0.85));
+  z-index: 0;
+}
+
+/* Decorative floating orb — adds depth */
+.login-page::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 10%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(108, 99, 255, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 8s ease-in-out infinite;
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.08); }
+}
+
+/* ============================================================
+   LOGIN PAGE NAVBAR
+   ============================================================ */
+.login-nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 60px;
+  color: white;
+  z-index: 2;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-links li {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: var(--transition);
+  opacity: 0.85;
+}
+
+.nav-links li:hover {
+  color: #a89cff;
+  opacity: 1;
+}
+
+/* ============================================================
+   LOGIN CONTAINER — Centers the card
+   ============================================================ */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+}
+
+/* ============================================================
+   GLASSMORPHISM LOGIN CARD — enhanced
+   ============================================================ */
+.login-box {
+  width: 440px;
+  padding: 48px 44px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.40),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: white;
+  text-align: center;
+  animation: cardFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.login-box h2 {
+  color: #FFFFFF !important;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 32px;
+}
+
+.login-box p {
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+/* --- Input wrapper --- */
+.input-box {
+  position: relative;
+  margin: 14px 0;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 14px 40px 14px 16px;
+  border: none;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 6px 6px 0 0;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.30);
+  font-weight: 400;
+}
+
+.input-box input:focus {
+  border-bottom-color: var(--primary-light);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 2px 16px rgba(108, 99, 255, 0.25);
+}
+
+/* Input icons */
+.icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.30);
+  font-size: 14px;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+.input-box input:focus ~ .icon {
+  color: var(--primary-light);
+}
+
+/* Fallback for direct .login-box inputs (no wrapper) */
+.login-box input {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 10px 0;
+  border: none;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 6px 6px 0 0;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.login-box input::placeholder {
+  color: rgba(255, 255, 255, 0.30);
+}
+
+.login-box input:focus {
+  outline: none;
+  border-bottom-color: var(--primary-light);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 2px 16px rgba(108, 99, 255, 0.25);
+}
+
+/* --- Login / Register Button — animated glow --- */
+.login-box button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.40);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover */
+.login-box button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.login-box button:hover::after {
+  left: 100%;
+}
+
+.login-box button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(108, 99, 255, 0.55);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+}
+
+.login-box button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(108, 99, 255, 0.35);
+}
+
+/* --- Register/Login link text --- */
+.register-text {
+  margin-top: 24px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.50) !important;
+}
+
+.register-text a {
+  color: #a89cff !important;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.register-text a:hover {
+  color: #c4bcff !important;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   FRAUD POPUP OVERLAY (FraudPopup.jsx)
+   ============================================================ */
+.fraud-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: overlayIn 0.2s ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fraud-popup {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 32px 36px;
+  width: 420px;
+  max-width: 90vw;
+  box-shadow: var(--shadow-elevated);
+  border-left: 5px solid #ef4444;
+  text-align: left;
+  animation: popupSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fraud-popup h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #dc2626;
+  margin-bottom: 16px;
+}
+
+.fraud-popup p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.fraud-popup button {
+  margin-top: 20px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px var(--primary-glow);
+}
+
+.fraud-popup button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px var(--primary-glow-strong);
+}
+
+/* ============================================================
+   DASHBOARD NAVBAR (Navbar.jsx)
+   ============================================================ */
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 16px 0;
+  margin-bottom: 8px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.notification {
+  position: relative;
+}
+
+.notification button {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-card);
+}
+
+.notification button:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.alert-dropdown {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  width: 280px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-elevated);
+  border: 1px solid var(--border-light);
+  padding: 16px;
+  z-index: 100;
+  animation: dropdownIn 0.2s ease;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert-dropdown h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f5;
+}
+
+.alert-dropdown p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 8px 0;
+  border-bottom: 1px solid #f8f8fc;
+  line-height: 1.5;
+}
+
+.alert-dropdown p:last-child {
+  border-bottom: none;
+}
+
+/* ============================================================
+   SIDEBAR active-menu (Sidebar.jsx uses "active-menu" class)
+   ============================================================ */
+.sidebar .active-menu {
+  background: rgba(255, 255, 255, 0.18) !important;
+  font-weight: 600;
+  border-left: 3px solid white;
+  padding-left: 11px;
+}

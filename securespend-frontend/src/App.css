@@ -1,0 +1,18 @@
+/* ============================================================
+   SecureSpend — App Root Reset
+   Removes Vite boilerplate, sets clean base
+   ============================================================ */
+
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  min-height: 100vh;
+}
+
+/* Remove Vite default link/button styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
